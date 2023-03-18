@@ -22,16 +22,19 @@
 <body>
     <header>
         <div id = "head">
-        <h1><a><img src="images/logo.png"></a></h1>
-            <div id="">
-                <div id="">
+        <h1><a href="/top"><img src="images/main_logo.png"></a></h1>
+            <div id="menu">
+                <input id="check" class="check" type="checkbox">
+                <label class="label" for="check">
                     <p>〇〇さん<img src="images/arrow.png"></p>
-                <div>
+                </label>
+                <div class="content">
                 <ul>
                     <li><a href="/top">ホーム</a></li>
                     <li><a href="/profile">プロフィール</a></li>
                     <li><a href="/logout">ログアウト</a></li>
                 </ul>
+                </div>
             </div>
         </div>
     </header>

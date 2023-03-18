@@ -20,3 +20,36 @@ header{
     flex: 0 0 19%;
     border-left: 1px solid #6C6C6C;
 }
+
+#menu{
+    width: 50%;
+}
+/* アコーディオンメニュー */
+.check{
+    display: none;
+}
+
+.label{
+    background: blanchedalmond;
+    color: black;
+    display: block;
+    margin-bottom: 1px;
+    padding: 10px;
+}
+
+.content{
+    border: 1px solid #333;
+    height: 0;
+    opacity: 0;
+    padding: 0 10px;
+    transition: .5s;
+    visibility: hidden;
+    background: white;
+}
+
+.check:checked+.label+.content{
+    height: 40px;
+    opacity: 1;
+    padding: 10px;
+    visibility: visible;
+}
