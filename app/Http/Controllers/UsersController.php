@@ -59,20 +59,17 @@ class UsersController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|string|max:255',
-            'mail' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:4|confirmed',
-            'password_confirmation' => 'required|string|min:4',
-            'file_name'=>['file','mimes:jpeg,png,jpg,bmb','max:2048'],
+            'mail' => 'required|string|email|max:255',
+            'password' => 'nullable|string|min:4',
+            'file_name'=>['file','mimes:jpeg,png,jpg,bmb','max:2048','nullable'],
         ],[
             'username.required' => '名前は必須項目です',
             'username.max' => '255文字以内で入力してください',
             'mail.required' => 'メールアドレスは必須項目です',
             'mail.email' => 'メールアドレス形式で入力してください',
             'mail.max' => '255文字以内で入力してください',
-            'password.required' => 'パスワードは必須項目です',
             'password.min' => 'パスワードは4文字以上です',
             'password.confirmed' => 'パスワード確認と同じ値を入れてください',
-            'password_confirmation.required' => 'パスワード確認は必須項目です',
             'password_confirmation.min' => 'パスワード確認は4文字以上です',
             'file_name.mines' => '画像はjpeg,png,jpg,bmbで保存してください',
             ])->validate();
@@ -86,10 +83,11 @@ class UsersController extends Controller
         $up_username = $request->input('username');
         $up_mail = $request->input('mail');
         $up_bio = $request->input('bio');
-        $file = $request->file_name;
-                $fileName = time().'.'.$file->getClientOriginalExtension();
-                $target_path = public_path('/uploads/');
-                $file->move($target_path,$fileName);
+        $file = $request->input('file_name');
+        if($file){
+        $fileName = time().'.'.$file->getClientOriginalExtension();
+        $target_path = public_path('/uploads/');
+        $file->move($target_path,$fileName);
         if($up_password = $request->input('password')){
         DB::table('users')
         ->where('id',$id)
@@ -110,6 +108,28 @@ class UsersController extends Controller
                 ,'images' =>$fileName]
                 );
 
+        }}else{
+        if($up_password = $request->input('password')){
+                 DB::table('users')
+                 ->where('id',$id)
+                 ->update(
+                        ['username' =>$up_username 
+                        ,'mail' =>$up_mail 
+                        ,'password' =>$up_password 
+                        ,'bio' =>$up_bio 
+                        ]
+                        );
+        }else{
+                DB::table('users')
+                ->where('id',$id)
+                ->update(
+                        ['username' =>$up_username 
+                        ,'mail' =>$up_mail 
+                        ,'bio' =>$up_bio 
+                        ]
+                        );
+                
+        }
         }
         return redirect('/profile');
     }
