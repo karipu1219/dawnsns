@@ -78,12 +78,11 @@ class UsersController extends Controller
     public function form(Request $request){
         $data = $request->input();
         $this->validator($data);
-
         $id = $request->input('id');
         $up_username = $request->input('username');
         $up_mail = $request->input('mail');
         $up_bio = $request->input('bio');
-        $file = $request->input('file_name');
+        $file = $request->file('file_name');
         if($file){
         $fileName = time().'.'.$file->getClientOriginalExtension();
         $target_path = public_path('/uploads/');
