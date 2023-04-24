@@ -93,7 +93,7 @@ class UsersController extends Controller
         ->update(
                 ['username' =>$up_username 
                 ,'mail' =>$up_mail 
-                ,'password' =>$up_password 
+                ,'password' => bcrypt($up_password) 
                 ,'bio' =>$up_bio 
                 ,'images' =>$fileName]
         );
@@ -114,7 +114,7 @@ class UsersController extends Controller
                  ->update(
                         ['username' =>$up_username 
                         ,'mail' =>$up_mail 
-                        ,'password' =>$up_password 
+                        ,'password' =>bcrypt($up_password) 
                         ,'bio' =>$up_bio 
                         ]
                         );
